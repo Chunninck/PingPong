@@ -82,37 +82,37 @@ ball = Ball(img_ball, 500, 300, 50, 50, 7, 7)
 finish = False
 run = True
 while run:
-    #событие нажатия на кнопку Закрыть
     for e in event.get():
         if e.type == QUIT:
             run = False
-        if not finish:
-            window.blit(background, (0,0))
-            platform_2.update_l()
-            platform_2.reset()
+    
+    window.blit(background, (0, 0))
+    
+    if not finish:
+        platform_2.update_l()
+        platform_2.reset()
         
-            platform_1.update_r()
-            platform_1.reset()
+        platform_1.update_r()
+        platform_1.reset()
         
-            ball.reset()
-            ball.update()
+        ball.update()
+        ball.reset()
         
-            if sprite.collide_rect(platform_1, ball) or sprite.collide_rect(platform_2, ball):
-                ball.speed_x *= -1
+        if sprite.collide_rect(platform_1, ball) or sprite.collide_rect(platform_2, ball):
+            ball.speed_x *= -1
         
-
-            if ball.rect.x <0:
-                
-                window.blit(lose_1,(600, 400))
-                display.update()
-                finish = True
-
-
-            if ball.rect.x > win_width-50:  
-                
-                window.blit(lose_2,(600, 400))
-                display.update()
-                finish = True
-
-        display.update()
-        time.delay(60)
+        if ball.rect.x < 0:
+            window.blit(lose_2, (600, 400))  
+            finish = True
+        elif ball.rect.x > win_width - 50:
+            window.blit(lose_1, (600, 400))  
+            finish = True
+    
+    else:
+        if ball.rect.x < 0:
+            window.blit(lose_2, (600, 400))
+        else:
+            window.blit(lose_1, (600, 400))
+    
+    display.update()
+    time.delay(60)
